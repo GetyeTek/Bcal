@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <title>የሽያጭ ማስሊያ</title>
     <style>
         :root {
@@ -828,6 +836,17 @@
         window.onload = () => {
             renderDraftTable();
         };
+
+        // -------------------------------------------------------------------
+        // 7. PWA SERVICE WORKER REGISTRATION
+        // -------------------------------------------------------------------
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('✅ Service Worker Registered!', reg.scope))
+                    .catch(err => console.error('❌ Service Worker Registration Failed!', err));
+            });
+        }
     </script>
 </body>
 </html>
